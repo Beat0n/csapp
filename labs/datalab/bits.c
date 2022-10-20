@@ -198,7 +198,7 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-    return 2;
+    return (((x+~0x3a+1)>>31)+1)&(((0x2f+~x+1)>>31)+1);
 }
 /* 
  * conditional - same as x ? y : z 
@@ -219,7 +219,7 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-    return !(x^y) | !!((x+~y+1) >> 31);
+    return !(x^y)|(((x+~(y)+1) >> 31)+1);
 }
 //4
 /* 
@@ -231,7 +231,7 @@ int isLessOrEqual(int x, int y) {
  *   Rating: 4 
  */
 int logicalNeg(int x) {
-    return (x^0);
+    return ((x | (~x+1))>>31)+1;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
  *             two's complement
